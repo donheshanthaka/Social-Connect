@@ -9,6 +9,7 @@ import path from "path"
 import { fileURLToPath } from "url"
 import authRoutes from "./routes/auth.js"
 import userRoutes from "./routes/users.js"
+import postRoutes from "./routes/posts.js"
 
 // Configuration
 const __filename = fileURLToPath(import.meta.url)
@@ -27,6 +28,7 @@ app.use("/assets", express.static(path.join(__dirname, "public/assets")))
 // Main routes
 app.use("/auth", authRoutes)
 app.use("/users", userRoutes)
+app.use("/posts", postRoutes)
 
 // Mongoose setup
 const PORT = process.env.PORT || 3001

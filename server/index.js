@@ -11,6 +11,11 @@ import authRoutes from "./routes/auth.js"
 import userRoutes from "./routes/users.js"
 import postRoutes from "./routes/posts.js"
 
+// Only needed when populating dummy data
+import User from "./models/User.js"
+import Post from "./models/Post.js"
+import { users, posts } from "./data/DataLoader.js"
+
 // Configuration
 const __filename = fileURLToPath(import.meta.url)
 const __dirname = path.dirname(__filename)
@@ -40,5 +45,8 @@ mongoose
   .then(() => {
     app.listen(PORT, () => console.log(`Server Port: ${PORT}`))
 
+    /* ADD DATA ONE TIME */
+    // User.insertMany(users);
+    // Post.insertMany(posts);
   })
   .catch((error) => console.log(`${error} did not connect`))

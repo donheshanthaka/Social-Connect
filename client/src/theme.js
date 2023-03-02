@@ -50,7 +50,7 @@ export const themeSettings = (mode) => {
               light: colorTokens.grey[700],
             },
             background: {
-              default: `linear-gradient(90deg, #2A5470 0%, #4C4177 100%)`,
+              default: colorTokens.grey[900],
               alt: colorTokens.grey[800],
             },
           }
@@ -69,7 +69,7 @@ export const themeSettings = (mode) => {
               light: colorTokens.grey[50],
             },
             background: {
-              default: `linear-gradient(90deg, #8EC5FC 0%, #E0C3FC 100%)`,
+              default: colorTokens.grey[10],
               alt: colorTokens.grey[0],
             },
           }),

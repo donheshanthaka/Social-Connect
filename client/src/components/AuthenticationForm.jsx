@@ -3,7 +3,6 @@ import {
   Box,
   Button,
   TextField,
-  useMediaQuery,
   Typography,
   useTheme,
   Divider,
@@ -18,7 +17,6 @@ import Dropzone from "react-dropzone"
 import FlexBetween from "components/FlexBetween"
 import { GoogleLogin } from "@react-oauth/google"
 import jwt_dedcode from "jwt-decode"
-import { Height } from "@mui/icons-material"
 
 const registerSchema = yup.object().shape({
   firstName: yup.string().required("required"),
@@ -55,7 +53,6 @@ const Form = () => {
   const { palette } = useTheme()
   const dispatch = useDispatch()
   const navigate = useNavigate()
-  const isNonMobile = useMediaQuery("(min-width:600px)")
   const isLogin = pageType === "login"
   const isRegister = pageType === "register"
 
@@ -69,7 +66,7 @@ const Form = () => {
     formData.append("type", "profileImage")
 
     const savedUserResponse = await fetch(
-      "http://localhost:3001/auth/register",
+      `${process.env.REACT_APP_SERVER_URI}/auth/register`,
       {
         method: "POST",
         body: formData,
@@ -84,7 +81,7 @@ const Form = () => {
   }
 
   const login = async (values, onSubmitProps) => {
-    const loggedInResponse = await fetch("http://localhost:3001/auth/login", {
+    const loggedInResponse = await fetch(`${process.env.REACT_APP_SERVER_URI}/auth/login`, {
       method: "POST",
       headers: { "Content-Type": "application/json" },
       body: JSON.stringify(values),
@@ -113,7 +110,7 @@ const Form = () => {
       picturePath: picture,
     }
 
-    const userLogin = await fetch("http://localhost:3001/auth/google", {
+    const userLogin = await fetch( `${process.env.REACT_APP_SERVER_URI}/auth/google`, {
       method: "POST",
       headers: { "Content-Type": "application/json" },
       body: JSON.stringify(userData),

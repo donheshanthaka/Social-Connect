@@ -21,7 +21,7 @@ const ProfilePage = () => {
       : "linear-gradient(90deg, #8EC5FC 0%, #E0C3FC 100%)"
 
   const getUser = async () => {
-    const response = await fetch(`http://localhost:3001/users/${userId}`, {
+    const response = await fetch(`${process.env.REACT_APP_SERVER_URI}/users/${userId}`, {
       method: "GET",
       headers: { Authorization: `Bearer ${token}` },
     })

@@ -19,6 +19,7 @@ import GlassmorphicWrapper from "components/GlassmorphicWrapper"
 import { useState } from "react"
 import { useDispatch, useSelector } from "react-redux"
 import { setPosts } from "state/state"
+import { useNavigate } from "react-router-dom"
 
 const UserPostWidget = ({ picturePath }) => {
   const dispatch = useDispatch()
@@ -26,6 +27,7 @@ const UserPostWidget = ({ picturePath }) => {
   const [image, setImage] = useState(null)
   const [post, setPost] = useState("")
   const { palette } = useTheme()
+  const navigate = useNavigate()
   const { _id } = useSelector((state) => state.user)
   const token = useSelector((state) => state.token)
   const medium = palette.neutral.medium
@@ -56,7 +58,12 @@ const UserPostWidget = ({ picturePath }) => {
   return (
     <GlassmorphicWrapper mb="2rem">
       <FlexBetween gap="1.5rem">
-        <ProfileImage image={picturePath} />
+        <Box
+          onClick={() => navigate(`/profile/${_id}`)}
+          sx={{ cursor: "pointer" }}
+        >
+          <ProfileImage image={picturePath} />
+        </Box>
         <InputBase
           placeholder="Share your memory with a caption..."
           onChange={(e) => setPost(e.target.value)}

@@ -6,8 +6,10 @@ import {
   Typography,
   useTheme,
   Divider,
+  useMediaQuery,
 } from "@mui/material"
 import EditOutlinedIcon from "@mui/icons-material/EditOutlined"
+import CircularProgress from '@mui/material/CircularProgress';
 import { Formik } from "formik"
 import * as yup from "yup"
 import { useNavigate } from "react-router-dom"
@@ -50,11 +52,13 @@ const initialValuesLogin = {
 
 const Form = () => {
   const [pageType, setPageType] = useState("login")
+  const [isLoading, setIsLoading] = useState(false)
   const { palette } = useTheme()
   const dispatch = useDispatch()
   const navigate = useNavigate()
   const isLogin = pageType === "login"
   const isRegister = pageType === "register"
+  const isNonMobileScreens = useMediaQuery("(min-width: 1000px)")
 
   const register = async (values, onSubmitProps) => {
     // this allows us to send form info with image
@@ -81,6 +85,7 @@ const Form = () => {
   }
 
   const login = async (values, onSubmitProps) => {
+    setIsLoading(true)
     const loggedInResponse = await fetch(`${process.env.REACT_APP_SERVER_URI}/auth/login`, {
       method: "POST",
       headers: { "Content-Type": "application/json" },
@@ -89,6 +94,7 @@ const Form = () => {
     const loggedIn = await loggedInResponse.json()
     onSubmitProps.resetForm()
     if (loggedIn) {
+      setIsLoading(false)
       dispatch(
         setLogin({
           user: loggedIn.user,
@@ -100,6 +106,7 @@ const Form = () => {
   }
 
   const googleAuth = async (response) => {
+    setIsLoading(true)
     const decoded = jwt_dedcode(response.credential)
     const { family_name, given_name, email, picture, sub } = decoded
     const userData = {
@@ -117,13 +124,16 @@ const Form = () => {
     })
     const loggedIn = await userLogin.json()
     if (loggedIn) {
+      setIsLoading(false)
       dispatch(
         setLogin({
           user: loggedIn.user,
           token: loggedIn.token,
         })
-      )
-      navigate("/home")
+        )
+        navigate("/home")
+    } else {
+      setIsLoading(false)
     }
   }
 
@@ -133,7 +143,8 @@ const Form = () => {
   }
 
   return (
-    <Formik
+    <>
+    {!isLoading? <Formik
       onSubmit={handleFormSubmit}
       initialValues={isLogin ? initialValuesLogin : initialValuesRegister}
       validationSchema={isLogin ? loginSchema : registerSchema}
@@ -172,6 +183,15 @@ const Form = () => {
           >
             {isRegister && (
               <>
+              <Typography
+            fontWeight="500"
+            variant="h3"
+            fontSize={isNonMobileScreens ? "1.5rem" : "1.2rem"}
+            color={palette.neutral.main}
+            sx={{ marginBottom: "2rem", textAlign: "center" }}
+          >
+            Join with our community
+          </Typography>
                 <TextField
                   label="First Name"
                   onBlur={handleBlur}
@@ -255,6 +275,7 @@ const Form = () => {
             )}
 
             {!isRegister && (
+              
               <Box
                 // width="500px"
                 // backgroundColor="red"
@@ -266,8 +287,21 @@ const Form = () => {
                 textAlign="center"
                 gap="10px"
               >
+                <Typography
+            fontWeight="500"
+            variant="h5"
+            fontSize={isNonMobileScreens ? "1.5rem" : "1.2rem"}
+            color={palette.neutral.main}
+            sx={{ marginBottom: "3rem", textAlign: "center" }}
+          >
+            Welcome to Social Connect, Social Media platform of the Next
+            Generation!
+          </Typography>
                 <Divider color="black">
-                  <Typography fontSize="1.2rem">
+                  <Typography 
+                  fontSize="1.2rem"
+                  color={palette.neutral.main}
+                  >
                     Continue with Google
                   </Typography>
                 </Divider>
@@ -286,7 +320,11 @@ const Form = () => {
                   />
                 </Box>
                 <Divider color="black" sx={{ mb: "0.5rem" }}>
-                  <Typography fontSize="1.2rem">Standard Login</Typography>
+                  <Typography 
+                  fontSize="1.2rem"
+                  color={palette.neutral.main}
+                  >
+                    Standard Login</Typography>
                 </Divider>
               </Box>
             )}
@@ -350,7 +388,8 @@ const Form = () => {
           </Box>
         </form>
       )}
-    </Formik>
+    </Formik>: <CircularProgress/>}
+    </>
   )
 }
 

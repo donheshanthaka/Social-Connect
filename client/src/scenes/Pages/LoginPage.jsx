@@ -47,7 +47,7 @@ const LoginPage = () => {
           flexDirection="column"
           justifyContent="center"
         >
-          <Typography
+          {/* <Typography
             fontWeight="500"
             variant="h5"
             fontSize={isNonMobileScreens ? "1.5rem" : "1.2rem"}
@@ -55,7 +55,7 @@ const LoginPage = () => {
           >
             Welcome to Social Connect, the Social Media platform of the Next
             Generation!
-          </Typography>
+          </Typography> */}
 
           <Box
             display="flex"

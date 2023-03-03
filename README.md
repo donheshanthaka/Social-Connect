@@ -31,9 +31,3 @@ Link to production site: [social-connect](https://social-connect-donheshanthaka.
 
 ### Profile Page
 ![4](https://user-images.githubusercontent.com/61963664/222644126-dd7597ef-2e41-4e6e-b62b-4da5a9f6f911.PNG)
-
-
-## 👥 Login credentials for testing purposes
-
-* email - test@gmail.com
-* password - password@123

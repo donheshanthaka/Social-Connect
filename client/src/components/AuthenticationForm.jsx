@@ -162,12 +162,9 @@ const Form = () => {
         <form
           onSubmit={handleSubmit}
           style={{
-            // background: "red",
             width: "80%",
             display: "flex",
             flexDirection: "column",
-            // alignItems: "center",
-            // justifyContent: "center"
             height: "50%",
           }}
         >
@@ -176,10 +173,6 @@ const Form = () => {
             flexDirection="column"
             gap="5px"
             height="50%"
-            // gridTemplateColumns="repeat(4, minmax(0, 1fr))"
-            // sx={{
-            //   "& > div": { gridColumn: isNonMobile ? undefined : "span 4" },
-            // }}
           >
             {isRegister && (
               <>
@@ -241,7 +234,6 @@ const Form = () => {
                   border={`1px solid ${palette.neutral.medium}`}
                   borderRadius="5px"
                   p="1rem"
-                  // height="30px"
                 >
                   <Dropzone
                     acceptedFiles=".jpg,.jpeg,.png"
@@ -254,9 +246,7 @@ const Form = () => {
                       <Box
                         {...getRootProps()}
                         border={`2px dashed ${palette.primary.main}`}
-                        // p="1rem"
                         sx={{ "&:hover": { cursor: "pointer" } }}
-                        // height="30px"
                       >
                         <input {...getInputProps()} />
                         {!values.picture ? (
@@ -277,10 +267,6 @@ const Form = () => {
             {!isRegister && (
               
               <Box
-                // width="500px"
-                // backgroundColor="red"
-                // marginLeft="2rem"
-                // position="relative"
                 display="flex"
                 flexDirection="column"
                 justifyContent="center"
@@ -309,7 +295,6 @@ const Form = () => {
                   display="flex"
                   justifyContent="center"
                   textAlign="center"
-                  // width="20%"
                   margin="0.5rem 0"
                 >
                   <GoogleLogin
@@ -388,7 +373,34 @@ const Form = () => {
           </Box>
         </form>
       )}
-    </Formik>: <CircularProgress/>}
+    </Formik>: 
+    <Box
+    width='100%'
+    display="flex"
+    flexDirection="column"
+    justifyContent="space-between"
+    alignItems="center"
+    height="400px"
+    >
+    <Typography
+            fontWeight="500"
+            variant="h3"
+            fontSize={isNonMobileScreens ? "1.5rem" : "1.2rem"}
+            color={palette.neutral.main}
+          >
+            Loading...
+          </Typography>
+    <CircularProgress/>
+    
+    <Typography
+            fontSize={isNonMobileScreens ? "0.9rem" : ".8rem"}
+            color={palette.neutral.main}
+            marginBottom={isNonMobileScreens? "0" : '2rem'}
+          >
+            Login could take up to a few seconds due to server limitations (free tier).
+          </Typography>
+          </Box>
+    }
     </>
   )
 }

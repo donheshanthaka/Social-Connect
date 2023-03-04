@@ -19,10 +19,18 @@ const LoginPage = () => {
         width="100%"
         height="8%"
         backgroundColor={theme.palette.background.alt}
-        p="1rem 6%"
-        textAlign="center"
+        display="flex"
+        alignItems="center"
+        justifyContent="center"
       >
-        <Typography fontWeight="bold" fontSize="32px" color="primary">
+        <Typography
+          fontWeight="bold"
+          fontSize={
+            isNonMobileScreens ? "calc(100% + 1vw)" : "calc(150% + 0.8vw)"
+          }
+          color="primary"
+          textAlign="center"
+        >
           Social Connect
         </Typography>
       </Box>
@@ -40,23 +48,13 @@ const LoginPage = () => {
           width={isNonMobileScreens ? "40%" : "80%"}
           p="2rem"
           mb="2rem"
-          marginTop={isNonMobileScreens ? "0" : "2rem"}
+          marginTop={isNonMobileScreens ? "2rem" : "2rem"}
           borderRadius="1.5rem"
           minHeight={isNonMobileScreens ? "80vh" : "40vh"}
           display="flex"
           flexDirection="column"
           justifyContent="center"
         >
-          {/* <Typography
-            fontWeight="500"
-            variant="h5"
-            fontSize={isNonMobileScreens ? "1.5rem" : "1.2rem"}
-            sx={{ marginBottom: "3rem", textAlign: "center" }}
-          >
-            Welcome to Social Connect, the Social Media platform of the Next
-            Generation!
-          </Typography> */}
-
           <Box
             display="flex"
             flexDirection="column"

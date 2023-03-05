@@ -2,7 +2,6 @@ import streamifier from "streamifier"
 import cloudinary from '../utils/cloudinary.js'
 
 const uploadImage = async (req, res, next) => {
-  console.log('dum')
   try {
     let preset = ''
     if (req.body.type === 'post') {

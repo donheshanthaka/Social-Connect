@@ -61,6 +61,7 @@ const Form = () => {
   const isNonMobileScreens = useMediaQuery("(min-width: 1000px)")
 
   const register = async (values, onSubmitProps) => {
+    setIsLoading(true)
     // this allows us to send form info with image
     const formData = new FormData()
     for (let value in values) {
@@ -80,7 +81,14 @@ const Form = () => {
     onSubmitProps.resetForm()
 
     if (savedUser) {
-      setPageType("login")
+      setIsLoading(false)
+      dispatch(
+        setLogin({
+          user: savedUser.savedNewUser,
+          token: savedUser.token,
+        })
+      )
+      navigate("/home")
     }
   }
 
@@ -397,7 +405,7 @@ const Form = () => {
             color={palette.neutral.main}
             marginBottom={isNonMobileScreens? "0" : '2rem'}
           >
-            Login could take up to a few seconds due to server limitations (free tier).
+            Login / Registration could take up to a few seconds due to server limitations (free tier).
           </Typography>
           </Box>
     }
